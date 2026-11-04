@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Gentle floating loop for the active (center) figurine.
+   Lives on a separate inner div so it never conflicts with
+   the outer position-transition transform. */
+@keyframes toonFloat {
+  0%,  100% { transform: translateY(0px);    }
+  40%        { transform: translateY(-18px);  }
+  60%        { transform: translateY(-14px);  }
+}
+
+/* Auto-play progress bar — grows from 0 to 100% width */
+@keyframes toonProgress {
+  from { width: 0%;   }
+  to   { width: 100%; }
+}
+
+/* Entry load animation for the hero background */
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Ambient slow breathing & motion for the hero background */
+@keyframes heroAmbient {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.04) translate(-0.8%, -0.4%);
+  }
+  100% {
+    transform: scale(1.02) translate(0.4%, -0.8%);
+  }
+}
+
+/* Entry load animation for the logo */
+@keyframes logoFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9) translateY(40px);
+  }
+  to {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1) translateY(0px);
+  }
+}
+
+/* Smooth breathing and floating animation for the logo */
+@keyframes logoBreathe {
+  0% {
+    transform: scale(1) translateY(0px);
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.1));
+  }
+  100% {
+    transform: scale(1.03) translateY(-12px);
+    filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.25));
+  }
+}
+
+/* Pulse and float animation for the scroll indicator */
+@keyframes scrollBounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+/* Subtle glow pulse for highlights */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+  }
+}
+/* Mobile input overflow prevention */
+@media (max-width: 640px) {
+  input, textarea, select {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  /* Prevent horizontal overflow on any grid */
+  * {
+    min-width: 0;
+  }
+}
