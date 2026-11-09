@@ -3497,7 +3497,7 @@ function formatEmbedSrc(url: string): string | null {
   // Instagram Reel or Post shortcode match
   const instaMatch = trimmed.match(/instagram\.com\/(?:reel|reels|p)\/([A-Za-z0-9_-]+)/i);
   if (instaMatch) {
-    return `https://www.instagram.com/p/${instaMatch[1]}/embed/captioned/`;
+    return `https://www.instagram.com/p/${instaMatch[1]}/embed/`;
   }
 
   // YouTube match
@@ -4191,9 +4191,11 @@ function ProductDetailModal({
             </p>
 
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
-              gap: '1.5rem',
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '1.25rem',
+              justifyContent: 'center',
+              alignItems: 'flex-start',
             }}>
               {product.embed_urls.map((rawUrl, idx) => {
                 const embedSrc = formatEmbedSrc(rawUrl);
@@ -4203,25 +4205,38 @@ function ProductDetailModal({
                   <div
                     key={idx}
                     style={{
+                      width: '100%',
+                      maxWidth: isInsta ? '320px' : '480px',
                       borderRadius: '16px',
                       overflow: 'hidden',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
-                      background: 'rgba(0,0,0,0.5)',
+                      border: '1px solid rgba(212, 175, 55, 0.22)',
+                      background: 'rgba(0, 0, 0, 0.65)',
+                      boxShadow: '0 12px 32px rgba(0, 0, 0, 0.45)',
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
+                      flexShrink: 0,
                     }}
                   >
-                    <div style={{ width: '100%', aspectRatio: isInsta ? '9 / 14' : '16 / 9', position: 'relative' }}>
+                    <div style={{
+                      width: '100%',
+                      aspectRatio: isInsta ? '9 / 14' : '16 / 9',
+                      maxHeight: isInsta ? '500px' : '280px',
+                      position: 'relative',
+                      background: '#050505',
+                      overflow: 'hidden',
+                    }}>
                       <iframe
                         src={embedSrc}
                         title={`Reel ${idx + 1}`}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
+                        scrolling="no"
                         style={{
                           width: '100%',
                           height: '100%',
                           border: 'none',
+                          display: 'block',
                         }}
                       />
                     </div>
